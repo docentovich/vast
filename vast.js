@@ -1,6 +1,6 @@
 
 console.log("bla-bla"); 
-console.log("bla-bla 1"); 
+console.log("bla-bla 2"); 
 (function(g, l) {
     function t(a, b, d) {
         this.name = a;
