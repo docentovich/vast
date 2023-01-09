@@ -655,7 +655,7 @@
                 once: true
             }
         );
-        document.head.appendChild(script)
+        document.head.appendChild(script);
 //         this._iframe = l.createElement("iframe");
 //         this._iframe.style.display = "none";
 //         l.body.appendChild(this._iframe);
