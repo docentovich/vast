@@ -1,4 +1,4 @@
-console.log("bla-bla");
+console.log("bla-bla"); 
 (function(g, l) {
     function t(a, b, d) {
         this.name = a;
