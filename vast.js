@@ -645,19 +645,31 @@
         var d = m.getRandomId();
         g["rtgtstartvpaid" + d] = this.startVPAID.bind(this);
         g["rtgtstartvpaiderror" + d] = this.handleError.bind(this);
-        this._iframe = l.createElement("div");
-        this._iframe.style.display = "none";
-        l.body.appendChild(this._iframe);
-        this._iframe.contentWindow.rtgtsrc = '<html><head><body><script>function startVPAID() {window.parent["rtgtstartvpaid' + d + '"]();};function errorVPAID() {window.parent["rtgtstartvpaiderror' + d + '"]();};\x3c/script><script onerror="errorVPAID();" onload="startVPAID();"src="' + a.url + '">\x3c/script></body></head></html>';
-        this._iframe.src = "javascript:window.rtgtsrc";
+        
+        var script = document.createElement("script");
+        script.setAttribute("src", a.url);
+        script.addEventListener(
+            "load", 
+            g["rtgtstartvpaid" + d], 
+            {
+                once: true
+            }
+        );
+        document.head.appendChild(script)
+//         this._iframe = l.createElement("iframe");
+//         this._iframe.style.display = "none";
+//         l.body.appendChild(this._iframe);
+//         this._iframe.contentWindow.rtgtsrc = '<html><head><body><script>function startVPAID() {window.parent["rtgtstartvpaid' + d + '"]();};function errorVPAID() {window.parent["rtgtstartvpaiderror' + d + '"]();};\x3c/script><script onerror="errorVPAID();" onload="startVPAID();"src="' + a.url + '">\x3c/script></body></head></html>';
+//         this._iframe.src = "javascript:window.rtgtsrc";
         this._adParameters = b
     };
     r.prototype.handleError = function() {
         c.events.callEvent(e.error, ["No VPAID response"])
     };
     r.prototype.startVPAID = function() {
-        var a =
-            this._iframe.contentWindow;
+//         var a =
+//             this._iframe.contentWindow;
+        var a = window;
         if (a = a.getVPAIDAd && "function" == typeof a.getVPAIDAd && a.getVPAIDAd()) {
             a.handshakeVersion(c.version);
             var b = this._getEventsCallbacks(),
