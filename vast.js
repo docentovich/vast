@@ -1,6 +1,4 @@
 
-console.log("bla-bla"); 
-console.log("bla-bla 2"); 
 (function(g, l) {
     function t(a, b, d) {
         this.name = a;
@@ -647,7 +645,7 @@ console.log("bla-bla 2");
         var d = m.getRandomId();
         g["rtgtstartvpaid" + d] = this.startVPAID.bind(this);
         g["rtgtstartvpaiderror" + d] = this.handleError.bind(this);
-        this._iframe = l.createElement("iframe");
+        this._iframe = l.createElement("div");
         this._iframe.style.display = "none";
         l.body.appendChild(this._iframe);
         this._iframe.contentWindow.rtgtsrc = '<html><head><body><script>function startVPAID() {window.parent["rtgtstartvpaid' + d + '"]();};function errorVPAID() {window.parent["rtgtstartvpaiderror' + d + '"]();};\x3c/script><script onerror="errorVPAID();" onload="startVPAID();"src="' + a.url + '">\x3c/script></body></head></html>';
