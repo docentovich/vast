@@ -1,6 +1,6 @@
 (function(window, document) {
 
-  function informer() {
+  window['informer']  = function informer() {
     function sanitize (str) {
       return str
         .replace(/&/g, '&amp;')
@@ -622,6 +622,7 @@
         frame.contentWindow.rtgtsrc = `<html><head><body><script>
           window.parent["rtgtInitViewabilityPixel"](\"${pointName}\");
           alert('dsf');
+          window.parent["informer"]();
           <\/script><\/body><\/head><\/html>`;
 
         frame.src = 'javascript:window.rtgtsrc';
