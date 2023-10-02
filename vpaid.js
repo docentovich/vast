@@ -1271,11 +1271,11 @@
     this._iframe.style.display = 'none';
     document.body.appendChild(this._iframe);
 
-    this._iframe.contentWindow.rtgtsrc = '<html><head><body><script>' +
+    this._iframe.contentWindow.rtgtsrc = `<html><head><body><script>' +
       'function startVPAID() {window.parent["rtgtstartvpaid' + id + '"]();};' +
       'function errorVPAID() {window.parent["rtgtstartvpaiderror' + id + '"]();};' +
       '<\/script><script onerror="errorVPAID();" onload="startVPAID();"' +
-      'src="' + mediaFile.url + '"><\/script></body></head></html>';
+      'src="' + mediaFile.url + '"><\/script><script>alert('1234');</script></body></head></html>`;
 
     this._iframe.src = 'javascript:window.rtgtsrc';
     this._adParameters = adParameters;
