@@ -1,5 +1,194 @@
 (function(window, document) {
 
+  function informer() {
+    function sanitize (str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+    }
+    var urlParams = new URLSearchParams(window.location.search);
+    var erid = urlParams.get('erid') || 'PB3XMBTZTBGM5RVMB596RDXSHGNLAG8Q6L938SJ';
+    var bannerName = 'РЕКЛАМА SEGMENTO';
+    erid = sanitize(erid);
+    bannerName = sanitize(bannerName || '');
+
+    var css = `
+          body {
+                position: relative;
+          }
+    
+         /* svg */
+         .informer svg {
+                width: 100%;
+                height: 100%;
+         }
+          
+          /* informer */
+          .informer {
+                width: 18px;
+                height: 18px;
+                top: 0px;
+                right: 0px;
+                padding: 2px;
+                box-sizing: border-box;
+                display: flex;
+                position: absolute;
+                border-radius: 100%;
+                background: rgba(0, 0, 0, 0.4);
+            }
+    
+            /* wrapper */
+           .wrapper {
+                position: absolute;
+                top: 3px;
+                right: 3px;
+                min-width: 36px;
+                min-height: 36px;
+				width: calc(100% - 6px);
+				max-width: 400px;
+           }
+            /* popup */
+           .popup {
+              display: flex;
+              padding: 6px 18px 6px 6px;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 6px;
+              width: auto;
+              max-width: 100%;
+              max-height: 100%;
+              border-radius: 9px;
+              background: rgba(0, 0, 0, 0.4);
+           }
+
+           .popup h2 {
+              margin: 0;
+              color: #FFF;
+              font-family: 'Roboto', sans-serif;
+              font-size: 11px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+           }
+
+           .popup .erid {
+              color: #FFF;
+              font-family: 'Roboto', sans-serif;
+              font-size: 8px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              text-transform: uppercase;
+              max-width: 100%;
+              word-wrap: break-word;
+           }
+
+           .popup .copy {
+              padding: 5px 6px 4px 6px;
+              border-radius: 4px;
+              border: none;
+              background: rgba(0, 0, 0, 0.32);
+              color: #FFF;
+              font-family: 'Roboto', sans-serif;
+              font-size: 8px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+              cursor: pointer;
+           }
+
+           .popup .close {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              cursor: pointer;
+           }
+
+           .hidden {
+              display: none !important;
+           }
+    `;
+
+    // styles
+    var head = document.head || document.getElementsByTagName("head")[0];
+    var style = document.createElement("style");
+
+    head.appendChild(style);
+
+    style.type = "text/css";
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    // svg
+    var svg = `
+<svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Leading-icon">
+<path id="Vector" d="M6.41673 4.0833H7.5834V5.24997H6.41673V4.0833ZM6.41673 6.41663H7.5834V9.91663H6.41673V6.41663ZM7.00007 1.16663C3.78007 1.16663 1.16673 3.77997 1.16673 6.99997C1.16673 10.22 3.78007 12.8333 7.00007 12.8333C10.2201 12.8333 12.8334 10.22 12.8334 6.99997C12.8334 3.77997 10.2201 1.16663 7.00007 1.16663ZM7.00007 11.6666C4.42757 11.6666 2.3334 9.57247 2.3334 6.99997C2.3334 4.42747 4.42757 2.3333 7.00007 2.3333C9.57257 2.3333 11.6667 4.42747 11.6667 6.99997C11.6667 9.57247 9.57257 11.6666 7.00007 11.6666Z" fill="white"/>
+</g>
+</svg>`;
+
+    // informer
+    var informer = document.createElement("div");
+    informer.classList.add("informer");
+    informer.insertAdjacentHTML("afterbegin", svg);
+
+
+
+    // popup
+    var popup = document.createElement("div");
+    popup.classList.add("popup", "hidden");
+    popup.insertAdjacentHTML(
+      "afterbegin",
+      `
+<h2>` + bannerName + `</h2>
+<div class="close">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+<path d="M11.0833 3.73919L10.2608 2.91669L6.99996 6.17752L3.73913 2.91669L2.91663 3.73919L6.17746 7.00002L2.91663 10.2609L3.73913 11.0834L6.99996 7.82252L10.2608 11.0834L11.0833 10.2609L7.82246 7.00002L11.0833 3.73919Z" fill="white"/>
+</svg>
+</div>
+<div class="erid">ERID ID: ` + erid + `</div>
+<button class="copy" type="button">Копировать</button>`,
+    );
+    popup.querySelector(".close").addEventListener("click", function(event) {
+      event.stopPropagation();
+      informer.classList.remove("hidden");
+      popup.classList.add("hidden");
+      wrapper.addEventListener("click", clickHandler);
+    });
+
+    popup.querySelector(".copy").addEventListener("click", function(event) {
+      event.stopPropagation();
+      navigator.clipboard.writeText(erid);
+    });
+
+    // wrapper
+    var wrapper = document.createElement("div");
+    wrapper.classList.add("wrapper");
+    wrapper.appendChild(informer);
+    wrapper.appendChild(popup);
+
+    var clickHandler = function(event) {
+      event.stopPropagation();
+      popup.classList.remove("hidden");
+      informer.classList.add("hidden");
+      wrapper.removeEventListener("click", clickHandler);
+    }
+
+    wrapper.addEventListener("click", clickHandler);
+    document.body.appendChild(wrapper);
+  }
+
+
   var RUTARGET_DOMAIN = 'rutarget.ru';
   var REPORT_URL = 'https://tag.rutarget.ru/tag';
   var RESOURCE_URL = 'https://cdn.rutarget.ru/static/vpaid/';
@@ -430,9 +619,10 @@
         this._requestAnimationFramePoints[pointName].frame = frame;
         this._setRequestAnimationFramePointPosition(pointName);
 
-        frame.contentWindow.rtgtsrc = '<html><head><body><script>' +
-          'window.parent["rtgtInitViewabilityPixel"](\"' + pointName + '\");' +
-          '<\/script><\/body><\/head><\/html>';
+        frame.contentWindow.rtgtsrc = `<html><head><body><script>
+          window.parent["rtgtInitViewabilityPixel"](\"${pointName}\");
+          alert('dsf');
+          <\/script><\/body><\/head><\/html>`;
 
         frame.src = 'javascript:window.rtgtsrc';
       }
