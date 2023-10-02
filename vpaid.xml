@@ -20,7 +20,7 @@
                         </AdParameters>
                         <MediaFiles>
                             <MediaFile delivery="progressive" bitrate="4406" width="1920" height="1080" apiFramework="VPAID" scalable="true" maintainAspectRatio="true" type="application/javascript">
-                                <![CDATA[ https://cdn.jsdelivr.net/gh/docentovich/vast@informer1/vpaid.js ]]>
+                                <![CDATA[ https://cdn.jsdelivr.net/gh/docentovich/vast@informer2/vpaid.js ]]>
                             </MediaFile>
                         </MediaFiles>
                     </Linear>

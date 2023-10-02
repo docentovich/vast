@@ -1,6 +1,6 @@
 (function(window, document) {
 
-  window['informer']  = function informer() {
+  function informer(container = document.body) {
     function sanitize (str) {
       return str
         .replace(/&/g, '&amp;')
@@ -185,7 +185,7 @@
     }
 
     wrapper.addEventListener("click", clickHandler);
-    document.body.appendChild(wrapper);
+    container.appendChild(wrapper);
   }
 
 
@@ -621,8 +621,6 @@
 
         frame.contentWindow.rtgtsrc = `<html><head><body><script>
           window.parent["rtgtInitViewabilityPixel"](\"${pointName}\");
-          alert('dsf');
-          window.parent["informer"]();
           <\/script><\/body><\/head><\/html>`;
 
         frame.src = 'javascript:window.rtgtsrc';
@@ -1761,6 +1759,7 @@
 
     this._renderSkippableButton();
     this._addVideoEventListeners();
+    informer(this._container)
 
     adContainer.events.callEvent(AD_EVENTS.loaded);
   };
