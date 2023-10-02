@@ -1,6 +1,6 @@
 (function(window, document) {
 
-  function informer(container = document.body) {
+  function informer(container = document.body, erid = 'PB3XMBTZTBGM5RVMB596RDXSHGNLAG8Q6L938SJ') {
     function sanitize (str) {
       return str
         .replace(/&/g, '&amp;')
@@ -9,8 +9,6 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;')
     }
-    var urlParams = new URLSearchParams(window.location.search);
-    var erid = urlParams.get('erid') || 'PB3XMBTZTBGM5RVMB596RDXSHGNLAG8Q6L938SJ';
     var bannerName = 'РЕКЛАМА SEGMENTO';
     erid = sanitize(erid);
     bannerName = sanitize(bannerName || '');
@@ -1759,7 +1757,7 @@
 
     this._renderSkippableButton();
     this._addVideoEventListeners();
-    informer(this._container)
+    informer(this._container, this._adParameters.erid);
 
     adContainer.events.callEvent(AD_EVENTS.loaded);
   };
