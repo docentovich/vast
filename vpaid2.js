@@ -255,12 +255,12 @@
     const styles = `
       .feed {
         box-sizing: border-box;
-        position: absolute;
         top: 0px;
         left: 0px;
         overflow-x: hidden;
         width: ${FEED_WIDTH_STRING};
         padding: 0 4px;
+        margin: auto;
       }
       
       .feed .feed__wrapper-outer {
