@@ -1,21 +1,24 @@
 (function(window, document) {
 
-  window['informer']  = function informer() {
-    function sanitize (str) {
-      return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;')
+  function informer(erid, container) {
+    if(!Boolean(erid)) {
+      return;
     }
-    var urlParams = new URLSearchParams(window.location.search);
-    var erid = urlParams.get('erid') || 'PB3XMBTZTBGM5RVMB596RDXSHGNLAG8Q6L938SJ';
-    var bannerName = 'РЕКЛАМА SEGMENTO';
-    erid = sanitize(erid);
-    bannerName = sanitize(bannerName || '');
 
-    var css = `
+    function renderInformer() {
+
+      function sanitize (str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+      }
+      var bannerName = 'РЕКЛАМА SEGMENTO';
+      erid = sanitize(erid);
+
+      var css = `
           body {
                 position: relative;
           }
@@ -38,33 +41,46 @@
                 position: absolute;
                 border-radius: 100%;
                 background: rgba(0, 0, 0, 0.4);
-            }
+          }
+          
+          .opened .informer {
+            display: none;
+          }
     
-            /* wrapper */
-           .wrapper {
-                position: absolute;
-                top: 3px;
-                right: 3px;
-                min-width: 36px;
-                min-height: 36px;
-				width: calc(100% - 6px);
-				max-width: 400px;
-           }
-            /* popup */
-           .popup {
-              display: flex;
-              padding: 6px 18px 6px 6px;
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 6px;
-              width: auto;
-              max-width: 100%;
-              max-height: 100%;
-              border-radius: 9px;
-              background: rgba(0, 0, 0, 0.4);
-           }
+          /* wrapper */
+          .wrapper {
+               position: absolute;
+               top: 3px;
+               right: 3px;
+               width: 36px;
+               height: 36px;
+               max-width: 400px;
+               cursor: pointer;
+          }
+          .opened.wrapper {
+            width: auto;
+            height: auto
+          }
+          /* popup */
+          .popup {
+             display: none;
+             padding: 6px 18px 6px 6px;
+             flex-direction: column;
+             align-items: flex-start;
+             gap: 6px;
+             width: auto;
+             max-width: 100%;
+             max-height: 100%;
+             border-radius: 9px;
+             background: #404040;
+          }
+          
+          .opened .popup {
+            display: flex;
+          }
 
            .popup h2 {
+              padding: 0;
               margin: 0;
               color: #FFF;
               font-family: 'Roboto', sans-serif;
@@ -83,25 +99,8 @@
               font-style: normal;
               font-weight: 400;
               line-height: normal;
-              text-transform: uppercase;
               max-width: 100%;
               word-wrap: break-word;
-           }
-
-           .popup .copy {
-              padding: 5px 6px 4px 6px;
-              border-radius: 4px;
-              border: none;
-              background: rgba(0, 0, 0, 0.32);
-              color: #FFF;
-              font-family: 'Roboto', sans-serif;
-              font-size: 8px;
-              font-style: normal;
-              font-weight: 500;
-              line-height: normal;
-              letter-spacing: 1px;
-              text-transform: uppercase;
-              cursor: pointer;
            }
 
            .popup .close {
@@ -110,84 +109,316 @@
               right: 5px;
               cursor: pointer;
            }
-
-           .hidden {
-              display: none !important;
-           }
     `;
 
-    // styles
-    var head = document.head || document.getElementsByTagName("head")[0];
-    var style = document.createElement("style");
+      // styles
+      var style = document.createElement("style");
 
-    head.appendChild(style);
+      style.type = "text/css";
+      if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+      } else {
+        style.appendChild(document.createTextNode(css));
+      }
 
-    style.type = "text/css";
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
-
-    // svg
-    var svg = `
+      // svg
+      var svg = `
 <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Leading-icon">
 <path id="Vector" d="M6.41673 4.0833H7.5834V5.24997H6.41673V4.0833ZM6.41673 6.41663H7.5834V9.91663H6.41673V6.41663ZM7.00007 1.16663C3.78007 1.16663 1.16673 3.77997 1.16673 6.99997C1.16673 10.22 3.78007 12.8333 7.00007 12.8333C10.2201 12.8333 12.8334 10.22 12.8334 6.99997C12.8334 3.77997 10.2201 1.16663 7.00007 1.16663ZM7.00007 11.6666C4.42757 11.6666 2.3334 9.57247 2.3334 6.99997C2.3334 4.42747 4.42757 2.3333 7.00007 2.3333C9.57257 2.3333 11.6667 4.42747 11.6667 6.99997C11.6667 9.57247 9.57257 11.6666 7.00007 11.6666Z" fill="white"/>
 </g>
 </svg>`;
 
-    // informer
-    var informer = document.createElement("div");
-    informer.classList.add("informer");
-    informer.insertAdjacentHTML("afterbegin", svg);
+      // informer
+      var informer = document.createElement("div");
+      informer.classList.add("informer");
+      informer.insertAdjacentHTML("afterbegin", svg);
 
-
-
-    // popup
-    var popup = document.createElement("div");
-    popup.classList.add("popup", "hidden");
-    popup.insertAdjacentHTML(
-      "afterbegin",
-      `
+      // popup
+      var popup = document.createElement("div");
+      popup.classList.add("popup", "hidden");
+      popup.insertAdjacentHTML(
+          "afterbegin",
+          `
 <h2>` + bannerName + `</h2>
 <div class="close">
 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
 <path d="M11.0833 3.73919L10.2608 2.91669L6.99996 6.17752L3.73913 2.91669L2.91663 3.73919L6.17746 7.00002L2.91663 10.2609L3.73913 11.0834L6.99996 7.82252L10.2608 11.0834L11.0833 10.2609L7.82246 7.00002L11.0833 3.73919Z" fill="white"/>
 </svg>
 </div>
-<div class="erid">ERID ID: ` + erid + `</div>
-<button class="copy" type="button">Копировать</button>`,
-    );
-    popup.querySelector(".close").addEventListener("click", function(event) {
-      event.stopPropagation();
-      informer.classList.remove("hidden");
-      popup.classList.add("hidden");
+<div class="erid">ERID: ` + erid + `</div>`);
+      popup.querySelector(".close").addEventListener("click", function(event) {
+        event.stopPropagation();
+        wrapper.classList.remove("opened");
+        wrapper.addEventListener("click", clickHandler);
+      });
+
+      // wrapper
+      var wrapper = document.createElement("div");
+      wrapper.classList.add("wrapper");
+      wrapper.appendChild(informer);
+      wrapper.appendChild(popup);
+
+      var clickHandler = function(event) {
+        event.stopPropagation();
+        wrapper.classList.add("opened");
+        wrapper.removeEventListener("click", clickHandler);
+      }
+
       wrapper.addEventListener("click", clickHandler);
-    });
 
-    popup.querySelector(".copy").addEventListener("click", function(event) {
-      event.stopPropagation();
-      navigator.clipboard.writeText(erid);
-    });
+      function appendElements() {
+        if (!container) {
+          container = document.body;
+        }
+        container.appendChild(style);
+        setTimeout(function () {
+          container.appendChild(wrapper);
+        })
+      }
 
-    // wrapper
-    var wrapper = document.createElement("div");
-    wrapper.classList.add("wrapper");
-    wrapper.appendChild(informer);
-    wrapper.appendChild(popup);
-
-    var clickHandler = function(event) {
-      event.stopPropagation();
-      popup.classList.remove("hidden");
-      informer.classList.add("hidden");
-      wrapper.removeEventListener("click", clickHandler);
+      setTimeout(appendElements);
     }
-
-    wrapper.addEventListener("click", clickHandler);
-    document.body.appendChild(wrapper);
+    renderInformer();
   }
 
+  function carousel(container) {
+    const offers = [
+      {
+        img: 'https://cs.p-static.ru/image/14043740/original-600x600-fit.jpg',
+        text: 'Гвозди строительные 4,0x100 мм',
+        url: 'https://moscow.petrovich.ru/product/101819/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/5589868/original-600x600-fit.jpg',
+        text: 'Молоток плиточника Hesler',
+        url: 'https://moscow.petrovich.ru/product/104829/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/52114393/original-600x600-fit.jpg',
+        text: 'Штукатурка гипсовая Knauf',
+        url: 'https://moscow.petrovich.ru/product/106958/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/12079142/original-600x600-fit.jpg',
+        text: 'Гидроизоляция Унифлекс',
+        url: 'https://moscow.petrovich.ru/product/108977/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/55424965/original-600x600-fit.jpg',
+        text: 'Гипсокартон влагостойкий',
+        url: 'https://moscow.petrovich.ru/product/101937/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/46298060/original-600x600-fit.jpg',
+        text: 'Шумоизоляция Роквул',
+        url: 'https://moscow.petrovich.ru/product/106934/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/46298060/original-600x600-fit.jpg',
+        text: 'Грунт Церезит СТ17 PRO',
+        url: 'https://moscow.petrovich.ru/product/109243/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/5822259/original-600x600-fit.jpg',
+        text: 'Кабель Кабэкс ВВГПнг(А)-LS',
+        url: 'https://moscow.petrovich.ru/product/103101/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://https://cs.p-static.ru/image/14791283/original-600x600-fit.jpg',
+        text: 'Клей для плитки',
+        url: 'https://moscow.petrovich.ru/product/106169/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+      {
+        img: 'https://cs.p-static.ru/image/15921782/original-600x600-fit.jpg',
+        text: 'ЭППС Пеноплэкс Комфорт',
+        url: 'https://moscow.petrovich.ru/product/170040/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
+      },
+    ];
+
+    const FEED_WIDTH = 354;
+    const FEED_WIDTH_STRING = `${FEED_WIDTH}px`;
+    const OFFER_GAP = 8;
+    const OFFER_WIDTH = 74;
+    const OFFER_WIDTH_STRING = OFFER_WIDTH + 'px';
+
+    const styles = `
+      .feed {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        overflow-x: hidden;
+        width: ${FEED_WIDTH_STRING};
+        padding: 0 4px;
+      }
+      
+      .feed .feed__wrapper-outer {
+        transition: transform 0.2s ease;
+      }
+      
+      .feed .feed__wrapper {
+        display: flex;
+        flex-direction: row;
+        transition: transform 0.2s ease;
+        width: 100%;
+        padding: ${OFFER_GAP}px;
+        column-gap: ${OFFER_GAP}px;
+        transform: translateY(-50%);
+      }
+      
+      .feed:hover .feed__wrapper {
+        transform: translateY(0%);  
+      }
+      
+      
+      .feed .feed__arrow {
+        top: 10px;
+        position: absolute;
+        cursor: pointer;
+      }
+      
+      .feed .feed__arrow:after {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 330 330'%3E%3Cpath d='M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z'/%3E%3C/svg%3E");
+        display: block;
+        width: 14px;
+        height: 14px;
+        background: white;
+        padding: 6px;
+        border-radius: 100%;
+      }
+      
+      .feed .feed__arrow--left {
+        left: 4px;
+        transform: rotate(180deg);
+      }
+      
+      .feed .feed__arrow--right {
+        right: 4px;
+      }
+
+      .offer {
+        flex: 0 0 ${OFFER_WIDTH_STRING};
+        box-sizing: border-box;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        font-family: Helvetica, sans-serif;
+        text-decoration: unset;
+        border-radius: 7px;
+      }
+      
+      .offer:hover {
+        background: #00000052;
+      } 
+      
+      .offer .offer__inner {
+        cursor: pointer;
+        height: 80px;
+        position: relative;
+        background: white;
+        border-radius: 7px;
+        display: flex;
+        box-shadow: 0 3px 4px 0px #393939;
+      }
+      
+      .offer:hover .offer__inner {
+        box-shadow: none;
+      }
+      
+      .offer .offer__img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+      
+      .offer .offer__discount {
+        top: 10px;
+        left: -4px;
+        position: absolute;
+        width: auto;
+        padding: 4px;
+        background: red;
+        border-radius: 5px;
+        color: white;
+        font-size: 12px;
+      }
+      
+      .offer .offer__price {
+        width: auto;
+        padding: 4px;
+        position: absolute;
+        background: #ddd4d4;
+        border-radius: 5px;
+        bottom: 5px;
+        left: 5px;
+        color: white;
+        font-size: 12px;
+      }
+      
+      .offer .offer__description {
+         width: 100%;
+         color: white;
+         font-size: 10px;
+      }
+    `;
+
+    let leftElOffset = 0;
+
+    const { createEl } = utils;
+    const feedEl =  createEl({ classList: ['feed'], styles });
+    const feedWrapperOuterEl =  createEl({ classList: ['feed__wrapper-outer'], parent: feedEl,
+      attributes: [['transform', 'translateX(0px)']]
+    });
+    const feedWrapperEl =  createEl({ classList: ['feed__wrapper'], parent: feedWrapperOuterEl,
+    });
+    const left = createEl({ classList: ['feed__arrow', 'feed__arrow--left'], parent: feedEl });
+    const right = createEl({ classList: ['feed__arrow', 'feed__arrow--right'], parent: feedEl });
+
+    for(const offer of offers) {
+      createOffer(offer, feedWrapperEl);
+    }
+
+    left.addEventListener('click', move(-1));
+    right.addEventListener('click', move(1));
+
+    function move(direction) {
+      return function () {
+        let nextLeftOffset = leftElOffset + direction * (OFFER_WIDTH + OFFER_GAP);
+
+        if(nextLeftOffset < 0) {
+          nextLeftOffset = 0;
+        } else if((nextLeftOffset + feedWrapperOuterEl.offsetWidth) > feedWrapperOuterEl.scrollWidth) {
+          nextLeftOffset = feedWrapperOuterEl.scrollWidth - feedWrapperOuterEl.offsetWidth;
+        }
+
+        leftElOffset = nextLeftOffset;
+        feedWrapperOuterEl.style.transform = `translateX(-${leftElOffset}px)`;
+      }
+    }
+
+    container.appendChild(feedEl);
+
+    function createOffer(offer, wrapperEl) {
+      const offerEl = createEl({ classList: ['offer'], parent: wrapperEl, tagName: 'a',
+        attributes: [['href', offer.url], ['target', '_blank']]
+      });
+      const offerInner = createEl({
+        classList: ['offer__inner'],
+        parent: offerEl,
+      });
+      createEl({ classList: ['offer__img'], tagName: 'img', parent: offerInner, attributes: [['src', offer.img]] });
+      if(offer.discount) {
+        createEl({ classList: ['offer__discount'], parent: offerInner, html: offer.discount });
+      }
+      if(offer.price) {
+        createEl({ classList: ['offer__price'], parent: offerInner, html: offer.price + ' ₽' });
+      }
+      createEl({ classList: ['offer__description'], parent: offerEl, html: offer.text });
+    }
+
+  }
 
   var RUTARGET_DOMAIN = 'rutarget.ru';
   var REPORT_URL = 'https://tag.rutarget.ru/tag';
@@ -318,9 +549,9 @@
     },
     jsonToQueryString: function(json) {
       return '?' +
-        Object.keys(json).map(function(key) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
-        }).join('&');
+          Object.keys(json).map(function(key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+          }).join('&');
     },
     getElementWindow: function(element) {
       var doc = element.ownerDocument;
@@ -382,10 +613,48 @@
     },
     isIE: function() {
       return navigator.appName === 'Microsoft Internet Explorer' && navigator.userAgent.indexOf('MSIE') > -1 ||
-        navigator.appName === 'Netscape' && navigator.userAgent.indexOf('Trident') > -1;
+          navigator.appName === 'Netscape' && navigator.userAgent.indexOf('Trident') > -1;
     },
     isSafari: function() {
       return navigator.userAgent.indexOf('Safari') > -1 && navigator.vendor.indexOf('Apple') > -1;
+    },
+    createEl: function({
+                         classList = [],
+                         tagName = 'div',
+                         parent = null,
+                         attributes = [],
+                         styles = null,
+                         html = null
+                       }) {
+      const el = document.createElement(tagName);
+      el.classList.add(...classList);
+
+      for(const attribute of attributes) {
+        el.setAttribute(attribute[0], attribute[1]);
+      }
+
+      if(parent) {
+        parent.appendChild(el);
+      }
+
+      if(styles) {
+        var style = document.createElement("style");
+
+        style.type = "text/css";
+        if (style.styleSheet) {
+          style.styleSheet.cssText = styles;
+        } else {
+          style.appendChild(document.createTextNode(styles));
+        }
+
+        document.body.appendChild(style);
+      }
+
+      if(html) {
+        el.insertAdjacentHTML("afterbegin", html);
+      }
+
+      return el;
     }
   };
 
@@ -465,8 +734,8 @@
 
   ViewabilityDetector.prototype._getIntersectionObserverState = function() {
     return (this._hasFocus() && this._intersectionRatio >= VIEWABILITY_PARAMS.percent)
-      ? VIEWABILITY_PARAMS.states.viewable
-      : VIEWABILITY_PARAMS.states.notViewable;
+        ? VIEWABILITY_PARAMS.states.viewable
+        : VIEWABILITY_PARAMS.states.notViewable;
   };
 
   ViewabilityDetector.prototype._initMozChecker = function() {
@@ -479,16 +748,16 @@
     var outerPageBeginsY = window.screenY + estimateOfHeightOfToolbars;
     var outerPageEndsY = window.screenY + window.outerHeight;
     var byHeight = outerPageBeginsY < (window.mozInnerScreenY + window.innerHeight / 2) &&
-      outerPageEndsY > (window.mozInnerScreenY + window.innerHeight / 2);
+        outerPageEndsY > (window.mozInnerScreenY + window.innerHeight / 2);
 
     var outerPageBeginsX = window.screenX;
     var outerPageEndsX = outerPageBeginsX + window.outerWidth;
     var byWidth = outerPageBeginsX < (window.mozInnerScreenX + window.innerWidth / 2) &&
-      outerPageEndsX > (window.mozInnerScreenX + window.innerWidth / 2);
+        outerPageEndsX > (window.mozInnerScreenX + window.innerWidth / 2);
 
     return byWidth && byHeight
-      ? VIEWABILITY_PARAMS.states.viewable
-      : VIEWABILITY_PARAMS.states.notViewable;
+        ? VIEWABILITY_PARAMS.states.viewable
+        : VIEWABILITY_PARAMS.states.notViewable;
   };
 
   ViewabilityDetector.prototype._initIEChecker = function() {
@@ -511,8 +780,8 @@
     }, this);
 
     return visiblePointsCount >= (grid.points.length / 2)
-      ? VIEWABILITY_PARAMS.states.viewable
-      : VIEWABILITY_PARAMS.states.notViewable;
+        ? VIEWABILITY_PARAMS.states.viewable
+        : VIEWABILITY_PARAMS.states.notViewable;
   };
 
   ViewabilityDetector.prototype._isVisibleIEGridPoint = function(point) {
@@ -593,14 +862,14 @@
 
     this._requestAnimationFramePointsWrapper = document.createElement('div');
     this._requestAnimationFramePointsWrapper.style.cssText =
-      'left: 0px; top: 0px; width: 0px; height: 0px; position: absolute; z-index: -9999;';
+        'left: 0px; top: 0px; width: 0px; height: 0px; position: absolute; z-index: -9999;';
     this._container.appendChild(this._requestAnimationFramePointsWrapper);
 
     window['rtgtInitViewabilityPixel'] = function(name) {
       var pixel = new ViewabilityPixel(
-        name,
-        this._setRequestAnimationFramePointVisibility.bind(this),
-        this._requestAnimationFramePoints[name].frame.contentWindow
+          name,
+          this._setRequestAnimationFramePointVisibility.bind(this),
+          this._requestAnimationFramePoints[name].frame.contentWindow
       );
       pixel.checkVisibility();
     }.bind(this);
@@ -613,17 +882,15 @@
         frame.frameBorder = 0;
         frame.id = pointName;
         frame.style.cssText = 'position: absolute; left: 0; top: 0; border-style: none;' +
-          'display: block; pointer-events: none; opacity: 0;';
+            'display: block; pointer-events: none; opacity: 0;';
 
         this._requestAnimationFramePointsWrapper.appendChild(frame);
         this._requestAnimationFramePoints[pointName].frame = frame;
         this._setRequestAnimationFramePointPosition(pointName);
 
-        frame.contentWindow.rtgtsrc = `<html><head><body><script>
-          window.parent["rtgtInitViewabilityPixel"](\"${pointName}\");
-          alert('dsf');
-          window.parent["informer"]();
-          <\/script><\/body><\/head><\/html>`;
+        frame.contentWindow.rtgtsrc = '<html><head><body><script>' +
+            'window.parent["rtgtInitViewabilityPixel"](\"' + pointName + '\");' +
+            '<\/script><\/body><\/head><\/html>';
 
         frame.src = 'javascript:window.rtgtsrc';
       }
@@ -635,14 +902,14 @@
 
     for (var pointName in this._requestAnimationFramePoints) {
       if (this._requestAnimationFramePoints.hasOwnProperty(pointName) &&
-        this._requestAnimationFramePoints[pointName].isVisible) {
+          this._requestAnimationFramePoints[pointName].isVisible) {
         visiblePointsCount++;
       }
     }
 
     return visiblePointsCount >= 2
-      ? VIEWABILITY_PARAMS.states.viewable
-      : VIEWABILITY_PARAMS.states.notViewable;
+        ? VIEWABILITY_PARAMS.states.viewable
+        : VIEWABILITY_PARAMS.states.notViewable;
   };
 
   ViewabilityDetector.prototype._setRequestAnimationFramePointsPosition = function() {
@@ -670,13 +937,13 @@
 
   ViewabilityDetector.prototype._getBoundingClientRectCheckerState = function() {
     var currentWindow = this._containerWindow,
-      rectangle = this._container.getBoundingClientRect(),
-      visibilityRatio = this._getVisibilityRatio(rectangle, currentWindow);
+        rectangle = this._container.getBoundingClientRect(),
+        visibilityRatio = this._getVisibilityRatio(rectangle, currentWindow);
 
     try {
       while (currentWindow !== window.top) {
         var name = currentWindow.name ||
-          (currentWindow.name = utils.getRandomId('rtgt-'));
+            (currentWindow.name = utils.getRandomId('rtgt-'));
         currentWindow = currentWindow.parent;
         rectangle = currentWindow.frames[name].frameElement.getBoundingClientRect();
         visibilityRatio = Math.min(this._getVisibilityRatio(rectangle, currentWindow), visibilityRatio);
@@ -686,8 +953,8 @@
     }
 
     return (this._hasFocus() && visibilityRatio * 100 >= VIEWABILITY_PARAMS.percent)
-      ? VIEWABILITY_PARAMS.states.viewable
-      : VIEWABILITY_PARAMS.states.notViewable;
+        ? VIEWABILITY_PARAMS.states.viewable
+        : VIEWABILITY_PARAMS.states.notViewable;
   };
 
   // called when video ad is started and set interval for detecting viewability
@@ -706,8 +973,8 @@
   // detect that document is visible and top document is focused
   ViewabilityDetector.prototype._hasFocus = function() {
     return !document.hidden &&
-      (this._position === AD_POSITION.xFrame ||
-        window.top.document.hasFocus && window.top.document.hasFocus());
+        (this._position === AD_POSITION.xFrame ||
+            window.top.document.hasFocus && window.top.document.hasFocus());
   };
 
   // detect ad position on the page: onPage,sameDomainFrame or crossDomainFrame
@@ -754,8 +1021,8 @@
   // calculate visible ad area
   ViewabilityDetector.prototype._getVisibilityRatio = function(rectangle, currentWindow) {
     var width = rectangle.width,
-      height = rectangle.height,
-      square = width * height;
+        height = rectangle.height,
+        square = width * height;
     if (rectangle.top < 0) {
       height += rectangle.top;
     }
@@ -1009,15 +1276,15 @@
         // looking for a valid third party vpaid file
         var mediaFiles = creative.mediaFiles.filter(function(mediaFile) {
           return mediaFile.apiFramework && mediaFile.apiFramework.toLowerCase() === 'vpaid' &&
-            mediaFile.type.toLowerCase() === 'application/javascript' &&
-            mediaFile.delivery.toLowerCase() === 'progressive';
+              mediaFile.type.toLowerCase() === 'application/javascript' &&
+              mediaFile.delivery.toLowerCase() === 'progressive';
         });
 
 
         if (mediaFiles.length) {
           // handle events and call pixels from third party vast
           var eventsTracker = new EventsTracker(creative.trackingEvents, ad.impressionUrls, ad.errorUrls,
-            creative.videoClicks && creative.videoClicks.clickTrackingUrls);
+              creative.videoClicks && creative.videoClicks.clickTrackingUrls);
           eventsTracker.init();
 
           var vpaidPlayer = new VpaidPlayer();
@@ -1251,8 +1518,8 @@
   VastParser.prototype._parseOffset = function(skipOffset, duration) {
     // skipOffset could be percents or hh:mm:ss
     return (skipOffset.indexOf('%') === skipOffset.length - 1)
-      ? duration * (parseInt(skipOffset, 10) / 100)
-      : this._parseDuration(skipOffset);
+        ? duration * (parseInt(skipOffset, 10) / 100)
+        : this._parseDuration(skipOffset);
   };
 
   // load and init third party VPAID
@@ -1272,10 +1539,10 @@
     document.body.appendChild(this._iframe);
 
     this._iframe.contentWindow.rtgtsrc = '<html><head><body><script>' +
-      'function startVPAID() {window.parent["rtgtstartvpaid' + id + '"]();};' +
-      'function errorVPAID() {window.parent["rtgtstartvpaiderror' + id + '"]();};' +
-      '<\/script><script onerror="errorVPAID();" onload="startVPAID();"' +
-      'src="' + mediaFile.url + '"><\/script></body></head></html>';
+        'function startVPAID() {window.parent["rtgtstartvpaid' + id + '"]();};' +
+        'function errorVPAID() {window.parent["rtgtstartvpaiderror' + id + '"]();};' +
+        '<\/script><script onerror="errorVPAID();" onload="startVPAID();"' +
+        'src="' + mediaFile.url + '"><\/script></body></head></html>';
 
     this._iframe.src = 'javascript:window.rtgtsrc';
     this._adParameters = adParameters;
@@ -1299,10 +1566,10 @@
 
       adContainer.actualVpaidAd = vpaidAd;
       var creativeData = this._adParameters
-        ? {AdParameters: this._adParameters}
-        : (adContainer.ad._creativeData || {});
+          ? {AdParameters: this._adParameters}
+          : (adContainer.ad._creativeData || {});
       vpaidAd.initAd(adContainer.ad._width, adContainer.ad._height, adContainer.ad._viewMode,
-        adContainer.ad._desiredBitrate, creativeData, adContainer.ad._environmentVars)
+          adContainer.ad._desiredBitrate, creativeData, adContainer.ad._environmentVars)
     }
   };
 
@@ -1433,7 +1700,7 @@
     else {
       adContainer.actualVpaidAd = new VideoPlayer();
       adContainer.actualVpaidAd.init(this._width, this._height, this._viewMode, this._desiredBitrate,
-        this._adParameters, this._slot, this._videoSlot, this._container);
+          this._adParameters, this._slot, this._videoSlot, this._container);
     }
   };
 
@@ -1533,8 +1800,8 @@
 
   VpaidAd.prototype.getAdCompanions = function() {
     return adContainer.actualVpaidAd && adContainer.actualVpaidAd.getAdCompanions
-      ? adContainer.actualVpaidAd.getAdCompanions()
-      : '';
+        ? adContainer.actualVpaidAd.getAdCompanions()
+        : '';
   };
 
   VpaidAd.prototype.subscribe = function(fn, eventName, context) {
@@ -1576,8 +1843,8 @@
     }
 
     var element = typeof this._videoSlot.nodeName === 'string' && typeof this._videoSlot.nodeType === 'number'
-      ? this._videoSlot
-      : this._slot;
+        ? this._videoSlot
+        : this._slot;
 
     if (element.clientWidth === 0 || element.clientHeight === 0) {
       element = this._container;
@@ -1673,7 +1940,7 @@
       }
 
       if (VIEWABILITY_EVENTS[eventName] !== undefined &&
-        this._viewabilityDetector.getViewabilityState() === VIEWABILITY_PARAMS.states.viewable) {
+          this._viewabilityDetector.getViewabilityState() === VIEWABILITY_PARAMS.states.viewable) {
         urlPostfix = '&viewable=true';
       }
 
@@ -1761,6 +2028,14 @@
 
     this._renderSkippableButton();
     this._addVideoEventListeners();
+    var clickThrough = this._adParameters.adEventsTrackers.clickThrough;
+    var matchErid = clickThrough.match(/[?&]erid=([^&]+)/);
+
+    if(matchErid && matchErid[1]) {
+      informer(matchErid[1], this._container);
+    }
+
+    carousel(this._container);
 
     adContainer.events.callEvent(AD_EVENTS.loaded);
   };
@@ -1794,6 +2069,8 @@
       // Choose the first video with a supported mimetype.
       if (this._video.slot.canPlayType(videos[i].type)) {
         this._video.slot.setAttribute('src', videos[i].url);
+        this._video.slot.setAttribute('type', 'video/mp4');
+        this._video.slot.setAttribute('controls', 'controls');
         return true;
       }
     }
@@ -1813,9 +2090,9 @@
     this._skippableButton = document.createElement('div');
     this._skippableButton.id = utils.getRandomId('rtgt-');
     this._skippableButton.setAttribute('style',
-      'position: absolute; right: 0; bottom: 22px; padding: 10px 15px;' +
-      'font-family: Arial; font-size: 11px; line-height: 11px; color: #e6e6e6;' +
-      'background: rgba(0,0,0,0.8); cursor: default; z-index: 1000; display: none;');
+        'position: absolute; right: 0; bottom: 22px; padding: 10px 15px;' +
+        'font-family: Arial; font-size: 11px; line-height: 11px; color: #e6e6e6;' +
+        'background: rgba(0,0,0,0.8); cursor: default; z-index: 1000; display: none;');
     this._skippableButtonText = document.createElement('span');
 
     this._container.appendChild(this._skippableButton);
@@ -1825,12 +2102,12 @@
   VideoPlayer.prototype._renderPlayButton = function() {
     this._playButtonWrapper = document.createElement('div');
     this._playButtonWrapper.setAttribute('style',
-      'width: 100%; height: 100%; position: absolute; ' +
-      'left: 0; bottom: 0; z-index: 1000; background: rgba(0,0,0,0.7);');
+        'width: 100%; height: 100%; position: absolute; ' +
+        'left: 0; bottom: 0; z-index: 1000; background: rgba(0,0,0,0.7);');
     this._playButton = document.createElement('div');
     this._playButton.setAttribute('style',
-      'width: 64px; height: 64px; position: absolute; margin: 0 0 -32px -32px;' +
-      'left: 50%; bottom: 50%; cursor: pointer; z-index: 1000;');
+        'width: 64px; height: 64px; position: absolute; margin: 0 0 -32px -32px;' +
+        'left: 50%; bottom: 50%; cursor: pointer; z-index: 1000;');
     this._playButton.style.background = 'url(' + RESOURCE_URL + 'play.svg)';
 
     this._container.appendChild(this._playButtonWrapper);
@@ -1841,8 +2118,8 @@
   VideoPlayer.prototype._renderMuteButton = function() {
     this._muteButton = document.createElement('div');
     this._muteButton.setAttribute('style',
-      'width: 32px; height: 32px; position: absolute; ' +
-      'left: 15px; bottom: 15px; cursor: pointer; z-index: 1000;');
+        'width: 32px; height: 32px; position: absolute; ' +
+        'left: 15px; bottom: 15px; cursor: pointer; z-index: 1000;');
     this._muteButton.style.background = 'url(' + RESOURCE_URL + 'mute.svg)';
 
     this._container.appendChild(this._muteButton);
@@ -1917,7 +2194,7 @@
     }
 
     var progress = e.target.currentTime / e.target.duration,
-      currentVideoEvent = this._video.progressEvents[this._video.lastEventIndex];
+        currentVideoEvent = this._video.progressEvents[this._video.lastEventIndex];
     if (progress >= currentVideoEvent.value) {
       adContainer.events.callEvent(currentVideoEvent.event);
       this._video.lastEventIndex++;
@@ -1981,15 +2258,15 @@
       // try to play video and show play button if handle error
       if (playVideo !== undefined) {
         playVideo
-          .then(this._startAdVideo.bind(this))
-          .catch(function() {
-            this.setAdVolume(0);
-            this._video.slot.muted = true;
-            this._renderMuteButton();
-            this._video.slot.play()
-              .then(this._startAdVideo.bind(this))
-              .catch(this._renderPlayButton.bind(this));
-          }.bind(this));
+            .then(this._startAdVideo.bind(this))
+            .catch(function() {
+              this.setAdVolume(0);
+              this._video.slot.muted = true;
+              this._renderMuteButton();
+              this._video.slot.play()
+                  .then(this._startAdVideo.bind(this))
+                  .catch(this._renderPlayButton.bind(this));
+            }.bind(this));
       }
       // if browsers doesn't support promises (edge, ie)
       else {
@@ -2027,12 +2304,12 @@
       // try to play video and show play button if handle error
       if (playVideo !== undefined) {
         playVideo
-          .catch(function() {
-            this.setAdVolume(0);
-            this._video.slot.muted = true;
-            this._renderMuteButton();
-            this._video.slot.play();
-          }.bind(this));
+            .catch(function() {
+              this.setAdVolume(0);
+              this._video.slot.muted = true;
+              this._renderMuteButton();
+              this._video.slot.play();
+            }.bind(this));
       }
     }
   };
