@@ -1,0 +1,28 @@
+<VAST version="3.0">
+    <Ad id="1">
+        <InLine>
+            <AdSystem>RuTarget</AdSystem>
+            <Error>
+                <![CDATA[ https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=error&vd_api=VPAID_2_0 ]]>
+            </Error>
+            <Impression>
+                <![CDATA[ https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=impression&vd_api=VPAID_2_0 ]]>
+            </Impression>
+            <Creatives>
+                <Creative>
+                    <Linear skipoffset="00:00:05.000">
+                        <Duration>00:00:10</Duration>
+                        <AdParameters>
+                            <![CDATA[ {"videos":[{"url":"https://cdn.rutarget.ru/creative/398126/0329_Petrovich_10_Nail_OLV.mp4","type":"video/mp4"}],"skippable":true,"showSkip":false,"progress":10,"progressLinks":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=view&vd_api=VPAID_2_0"],"urlParameters":{"ssp":"google","rid":"test-preview-1","cid":111422,"t":398126,"vid":"L29S6_Oq8hCB","vd_api":"VPAID_2_0"},"adEventsTrackers":{"clickThrough":"https://click.rutarget.ru/click?ssp=google&rid=test-preview-1&t=398126&cid=111422","clickTracking":[],"playback":{"creativeView":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=creative_view&vd_api=VPAID_2_0"],"start":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=start&vd_api=VPAID_2_0"],"firstQuartile":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=first_quartile&vd_api=VPAID_2_0"],"midpoint":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=midpoint&vd_api=VPAID_2_0"],"thirdQuartile":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=third_quartile&vd_api=VPAID_2_0"],"complete":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=complete&vd_api=VPAID_2_0"],"mute":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=mute&vd_api=VPAID_2_0"],"unmute":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=unmute&vd_api=VPAID_2_0"],"pause":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=pause&vd_api=VPAID_2_0"],"rewind":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=rewind&vd_api=VPAID_2_0"],"resume":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=resume&vd_api=VPAID_2_0"],"fullscreen":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=full_screen&vd_api=VPAID_2_0"],"expand":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=expand&vd_api=VPAID_2_0"],"collapse":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=collapse&vd_api=VPAID_2_0"],"acceptInvitation":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=accept_invitation&vd_api=VPAID_2_0"],"close":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=close&vd_api=VPAID_2_0"],"skip":["https://creative.rutarget.ru/video?ssp=google&rid=test-preview-1&cid=111422&t=398126&vid=L29S6_Oq8hCB&event=skip&vd_api=VPAID_2_0"]},"view":"https://creative.rutarget.ru/view?name=view&cid=111422&ssp=google&rid=test-preview-1&t=398126&vid=L29S6_Oq8hCB"}} ]]>
+                        </AdParameters>
+                        <MediaFiles>
+                            <MediaFile delivery="progressive" bitrate="2836" width="1920" height="1080" apiFramework="VPAID" scalable="true" maintainAspectRatio="true" type="application/javascript">
+                                <![CDATA[ https://cdn.jsdelivr.net/gh/docentovich/vast@main/vpaid.js ]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+            </Creatives>
+        </InLine>
+    </Ad>
+</VAST>
