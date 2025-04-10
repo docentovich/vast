@@ -307,6 +307,7 @@
         font-family: Helvetica, sans-serif;
         text-decoration: unset;
         border-radius: 7px;
+         background: #0000006e;
       }
       
       .offer:hover {
@@ -321,7 +322,7 @@
         border-radius: 7px;
         display: flex;
         box-shadow: 0 3px 4px 0px #393939;
-        background: #0000006e;
+       
       }
       
       .offer:hover .offer__inner {
