@@ -187,51 +187,61 @@
       {
         img: 'https://cs.p-static.ru/image/14043740/original-600x600-fit.jpg',
         text: 'Гвозди строительные 4,0x100 мм',
+        price: '1',
         url: 'https://moscow.petrovich.ru/product/101819/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/5589868/original-600x600-fit.jpg',
         text: 'Молоток плиточника Hesler',
+        price: '20',
         url: 'https://moscow.petrovich.ru/product/104829/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/52114393/original-600x600-fit.jpg',
         text: 'Штукатурка гипсовая Knauf',
+        price: '300',
         url: 'https://moscow.petrovich.ru/product/106958/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/12079142/original-600x600-fit.jpg',
         text: 'Гидроизоляция Унифлекс',
+        price: '320',
         url: 'https://moscow.petrovich.ru/product/108977/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/55424965/original-600x600-fit.jpg',
         text: 'Гипсокартон влагостойкий',
+        price: '-20',
         url: 'https://moscow.petrovich.ru/product/101937/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/46298060/original-600x600-fit.jpg',
         text: 'Шумоизоляция Роквул',
+        price: '220',
         url: 'https://moscow.petrovich.ru/product/106934/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/46298060/original-600x600-fit.jpg',
         text: 'Грунт Церезит СТ17 PRO',
+        price: '200',
         url: 'https://moscow.petrovich.ru/product/109243/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/5822259/original-600x600-fit.jpg',
         text: 'Кабель Кабэкс ВВГПнг(А)-LS',
+        price: '20',
         url: 'https://moscow.petrovich.ru/product/103101/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://https://cs.p-static.ru/image/14791283/original-600x600-fit.jpg',
         text: 'Клей для плитки',
+        price: '-20',
         url: 'https://moscow.petrovich.ru/product/106169/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
       {
         img: 'https://cs.p-static.ru/image/15921782/original-600x600-fit.jpg',
         text: 'ЭППС Пеноплэкс Комфорт',
+        price: '-20',
         url: 'https://moscow.petrovich.ru/product/170040/?utm_source=segmento&utm_medium=cpm&utm_campaign=shoppable_ads_gvozd_msc_cfo&utm_id=segmento_shoppable_ads_gvozd_msc_cfo',
       },
     ];
